@@ -16,7 +16,7 @@ Also, dcmqr (dcm4che2 DICOM query utility) must be on your path.
 1. ```./dicom_push.rb <AE>@<SERVER>:<PORT> <directory>```
 Push all the files in directory to the specified DICOM server. This uses the ruby-dicom library, which must be installed. It requires ruby 1.9.2.
 There is an issue with 1.8.7. You may also need to set the following environment variable:<br>
-```export RUBYOPT="rubygems"```
+```export RUBYOPT="rubygems"```<br>
 This utility is an alternative to using the dcmsend utility, which is used as following:<br>
 ```dcmsnd <AE>@<SERVER>:<PORT> <directory>```
 
