@@ -101,20 +101,20 @@ if __name__ == "__main__":
     parser.add_option("-j", "--json_file", default = "" , dest="filename", 
         action="store", help="File containing JSON object describing studies,"
         " series, and instances")
-    parser.add_option("-f", "--from", default="", dest="from", action="store", 
+    parser.add_option("-f", "--from", default="", dest="from_dir", action="store", 
         help="Location of files to move");
-    parser.add_option("-t", "--to", default="", dest="to", action="store", 
+    parser.add_option("-t", "--to", default="", dest="to_dir", action="store", 
         help="Location to move matching files");
     parser.add_option("-d", "--delete", default=False, dest='delete', 
         action="store_true", help="Delete matching files (instead of move)")
 
 
     (options, args) = parser.parse_args()
-    if not (options["series"] or options["studies"] or options["instances"] \
-        or options["filename"]):
+    if not (options.series or options.studies or options.instances \
+        or options.filename):
         sys.stderr.write("Must supply series, study, instance or filename.")
         sys.exit()
-    if not (options["from"] and (options["to"] or options["delete"])):
+    if not (options.from_dir and (options.to_dir or options.delete)):
         sys.stderr.write("Must supply from and to directory"
             " (or specify delete).")
         sys.exit()
@@ -124,9 +124,9 @@ if __name__ == "__main__":
        ("series", set(), SERIES_IUID),
        ("instances",set(), SOP_IUID))
 
-    if options["filename"]:
+    if options.filename:
         try:
-            scheme = json.loads(open(options["filename"], "r"))
+            scheme = json.loads(open(options.filename, "r"))
         except e:
             sys.stderr.write(e)
             sys.exit()
@@ -136,10 +136,10 @@ if __name__ == "__main__":
                 elements.update([x.strip() for x in scheme[level]])
 
     for level, elements, ignore in levels:
-        if options[level]:
-            elements.update([x.strip() for x in options[level].split(",")])
+        if getattr(options, level):
+            elements.update([x.strip() for x in getattr(options, level).split(",")])
 
     filter_dicom(levels[0][1], levels[1][1], levels[2][1], 
-        options["from"], options["to"], options["delete"])
+        options.from_dir, options.to_dir, options.delete)
 
 
