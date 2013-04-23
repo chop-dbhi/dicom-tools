@@ -73,7 +73,6 @@ def filter_dicom(studies, series, instances, start_dir,
                         (os.path.join(root, filename), index))
                     continue
                  if element in elements:
-                     ds.close()
                      action = "deleting" if delete else "moving"
                      sys.stdout.write("%s matched on %s( = to %s), %s.\n" % \
                           (os.path.join(root, filename), index, element, action))
@@ -87,8 +86,6 @@ def filter_dicom(studies, series, instances, start_dir,
                             % os.path.join(root, filename))
                          sys.exit()
                      break
-             else:
-                 ds.close()
 
 if __name__ == "__main__":
     parser = OptionParser()
