@@ -21,7 +21,7 @@ This utility is an alternative to using the dcmsend utility, which is used as fo
 ```dcmsnd <AE>@<SERVER>:<PORT> <directory>```
 
 1. `./filter_dicom.py -S 1.12.32.32 -f /source/dir -t /dest/dir` <br>
-This script, which takes a few more arguments (allowing you to specify comma separated lists of studesi (-S), series (-s) and instance (-i) uids) will recursively go through a directory (specified by the -f flag) and move all DICOM files that match _one_ of the specified requirements to a different directory (specified by the -t flag). It also takes a -d flag, which causes the files to be deleted. You can also pass a JSON formatted filename with the -j flag in addition to or instead of the other command line arguments. The file can be used to specify the filters you would like applied and must be in this format:
+This script allows you to specify comma separated lists of study (-S), series (-s) and instance (-i) uids and will recursively go through a directory (specified by the -f flag) removing all DICOM files that match _one_ of the specified requirements to a different directory (specified by the -t flag). It also takes a -d flag, which causes the files to be deleted. You can also pass a JSON formatted filename with the -j flag in addition to or instead of the other command line arguments. The file can be used to specify the filters you would like applied and must be in this format:
 
 ```javascript
 {
