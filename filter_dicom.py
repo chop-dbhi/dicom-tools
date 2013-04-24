@@ -77,13 +77,13 @@ def filter_dicom(studies, series, instances, start_dir,
                      sys.stdout.write("%s matched on %s( = to %s), %s.\n" % \
                           (os.path.join(root, filename), index, element, action))
                      try:
-                        if options["delete"]:
+                        if delete:
                             os.remove(os.path.join(root, filename))
                         else:
                             move(os.path.join(root, filename), move_dir, root)
-                     except Error:
-                         sys.stderr.write("Error move or deleting %s.\n" \
-                            % os.path.join(root, filename))
+                     except Exception, e:
+                         sys.stderr.write("Error move or deleting %s: %s\n" \
+                            % (os.path.join(root, filename), e))
                          sys.exit()
                      break
 
