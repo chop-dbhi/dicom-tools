@@ -65,7 +65,7 @@ def filter_dicom(studies, series, instances, start_dir,
                      filename))
                  continue
 
-             for level, element, index in levels:
+             for level, elements, index in levels:
                  try:
                     element = ds[index].value.strip()
                  except KeyError:
