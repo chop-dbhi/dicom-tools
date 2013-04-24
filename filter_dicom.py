@@ -117,24 +117,34 @@ if __name__ == "__main__":
         sys.exit()
 
 
-    levels = (("studies", set(), STUDY_IUID), 
+    levels = (("studies", set(), STUDY_IUID),
        ("series", set(), SERIES_IUID),
        ("instances",set(), SOP_IUID))
 
     if options.filename:
         try:
-            scheme = json.loads(open(options.filename, "r"))
-        except e:
-            sys.stderr.write(e)
+            json_file = open(options.filename, "r")
+            schema = json.loads(json_file.read())
+            json_file.close()
+        except Exception, e:
+            json_file.close()
+            sys.stderr.write("%s\n" % e)
             sys.exit()
 
         for level, elements, ignore in levels:
            if schema.has_key(level):
-                elements.update([x.strip() for x in scheme[level]])
+                elements.update([x.strip() for x in schema[level]])
 
     for level, elements, ignore in levels:
         if getattr(options, level):
             elements.update([x.strip() for x in getattr(options, level).split(",")])
+
+    sys.stdout.write("Summary:\nStudies: %s\nSeries: %s\nInstances: %s\nin %s"
+        " will be " % (levels[0][1], levels[1][1], levels[2][1], options.from_dir))
+    if options.delete:
+        sys.stdout.write("deleted.\n")
+    else:
+        sys.stdout.write("moved to %s\n" % options.to_dir)
 
     filter_dicom(levels[0][1], levels[1][1], levels[2][1], 
         options.from_dir, options.to_dir, options.delete)
