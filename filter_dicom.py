@@ -80,7 +80,7 @@ def filter_dicom(studies, series, instances, start_dir,
                         if delete:
                             os.remove(os.path.join(root, filename))
                         else:
-                            move(os.path.join(root, filename), move_dir, root)
+                            move(os.path.join(root, filename), move_dir, start_dir)
                      except Exception, e:
                          sys.stderr.write("Error move or deleting %s: %s\n" \
                             % (os.path.join(root, filename), e))
