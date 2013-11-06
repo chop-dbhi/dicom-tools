@@ -4,6 +4,8 @@ import os
 
 study_descriptions = set()
 series_descriptions = set()
+patient_names = set()
+
 print sys.argv[1]
 for root, dirs, files in os.walk(sys.argv[1]):
      for filename in files:
@@ -23,6 +25,12 @@ for root, dirs, files in os.walk(sys.argv[1]):
              series_descriptions.add(series_descr)
          except KeyError:
              pass
+             
+         try:
+              name = ds[0x10, 0x10].value.strip()
+              patient_names.add(name)
+         except KeyError:
+              pass
 
 print "--------STUDY---------"
 
@@ -32,4 +40,8 @@ for x in study_descriptions:
 print "--------SERIES---------"
 
 for x in series_descriptions:
+    print x
+    
+print "--------NAMES---------"
+for x in patient_names:
     print x

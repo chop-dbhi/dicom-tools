@@ -36,5 +36,7 @@ This script allows you to specify comma separated lists of study (-S), series (-
                  "<SOP IUIDS>"]
 }
 ```
+1. `./print_summary.py <directory>` <br>
+Given a directory of DICOM files, print out a summary of all unique study descriptions, series descriptions and patient names.
 
 
